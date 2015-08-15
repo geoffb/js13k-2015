@@ -2,11 +2,34 @@ var engine = require("./ocelot/engine");
 var entities = require("./ocelot/entities");
 var assets = require("./ocelot/assets");
 
-engine.init(800, 600);
-
 assets.load([
-	"hero.png"
+	"media/images/tiles.png"
 ]);
+
+var map = [];
+for (var y = 0; y < 10; ++y) {
+	map.push([]);
+	for (var x = 0; x < 10; ++x) {
+		map[y][x] = Math.random() > 0.5 ? 1 : 0;
+	}
+}
+
+engine.init(320, 240);
+
+entities.definePrefab("map", {
+	transform: {
+		x: 0,
+		y: 0,
+		sx: 1,
+		sy: 1,
+		r: 0
+	},
+	tilemap: {
+		image: "media/images/tiles.png",
+		size: 8,
+		map: map
+	}
+});
 
 entities.definePrefab("thing1", {
 	transform: {
@@ -16,11 +39,12 @@ entities.definePrefab("thing1", {
 		sy: 1,
 		r: 0
 	},
-	body: {
-		vx: 0,
-		vy: 0,
-		g: 1
-	},
+
+	// body: {
+	// 	vx: 0,
+	// 	vy: 0,
+	// 	g: 1
+	// },
 	// sprite: {
 	// 	alpha: 1,
 	// 	path: "hero.png"
@@ -41,6 +65,7 @@ entities.definePrefab("thing1", {
 	// }
 });
 
-entities.spawn("thing1");
+entities.spawn("map");
+// entities.spawn("thing1");
 
 engine.start();
