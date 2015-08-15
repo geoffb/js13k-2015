@@ -45,8 +45,7 @@ entities.definePrefab("player", {
 		r: 0
 	},
 	light: {
-		// Radius
-		// Color
+		radius: 16
 	},
 	sprite: {
 		image: "media/images/sprites.png",
@@ -73,10 +72,10 @@ var map = entities.spawn("map");
 var player = entities.spawn("player");
 var darkness = entities.spawn("darkness");
 
-// tween.create(map.transform, {
-// 	x: 200,
-// 	y: 100
-// }, 1000);
+// tween.create(player.transform, {
+// 	x: 150,
+// 	y: 80
+// }, 2000);
 
 // entities.spawn("thing1");
 

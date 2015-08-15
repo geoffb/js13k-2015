@@ -1,9 +1,9 @@
 var canvas = require("../ocelot/canvas");
 var entities = require("../ocelot/entities");
-var assets = require("../ocelot/assets");
 
 var buffer = canvas.create(1, 1);
 var bctx = buffer.getContext("2d");
+bctx.imageSmoothingEnabled = false;
 
 exports.render = function (ctx) {
 	// TODO: If we pass the camera/viewport to render
@@ -12,17 +12,10 @@ exports.render = function (ctx) {
 	buffer.width = darkness.width;
 	buffer.height = darkness.height;
 
+	bctx.save();
 	bctx.globalAlpha = 0.75;
 	bctx.fillStyle = "black";
 	bctx.fillRect(0, 0, buffer.width, buffer.height);
-
-	var image = assets.get("media/images/sprites.png");
-	var index = 3;
-	var size = 8;
-	var width = Math.floor(image.width / size);
-	var sx = index % width;
-	var sy = Math.floor(index / width);
-	var scaleSize = size * 3;
 
 	bctx.globalCompositeOperation = "destination-out";
 
@@ -32,13 +25,12 @@ exports.render = function (ctx) {
 		var xform = entity.transform;
 		var light = entity.light;
 		if (!light) { continue; }
-
-		bctx.drawImage(
-			image,
-			sx * size, sy * size, size, size,
-			xform.x - scaleSize / 2, xform.y - scaleSize / 2, scaleSize, scaleSize
-		);
+		bctx.beginPath();
+		bctx.arc(xform.x, xform.y, light.radius, 0, Math.PI * 2);
+		bctx.fill();
 	}
+
+	bctx.restore();
 
 	ctx.drawImage(
 		buffer,
