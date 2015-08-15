@@ -1,6 +1,7 @@
 var engine = require("./ocelot/engine");
 var entities = require("./ocelot/entities");
 var assets = require("./ocelot/assets");
+var tween = require("./ocelot/tween");
 
 assets.load([
 	"media/images/tiles.png"
@@ -18,8 +19,8 @@ engine.init(320, 240);
 
 entities.definePrefab("map", {
 	transform: {
-		x: 0,
-		y: 0,
+		x: 10,
+		y: 10,
 		sx: 1,
 		sy: 1,
 		r: 0
@@ -65,7 +66,13 @@ entities.definePrefab("thing1", {
 	// }
 });
 
-entities.spawn("map");
+var map = entities.spawn("map");
+
+tween.create(map.transform, {
+	x: 200,
+	y: 100
+}, 1000);
+
 // entities.spawn("thing1");
 
 engine.start();

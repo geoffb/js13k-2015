@@ -7,7 +7,8 @@ build: clean
 	uglifyjs build/build.js -o build/build.js --overwrite
 	cp index.html build/index.html
 	cp -R media build
-	find build -name '*.png' | while read line; do pngcrush -ow -brute ${line}; done
+	# TODO: The $line variable is coming out blank
+	#find build -name '*.png' | while read line; do pngcrush -ow -brute "$line"; done
 
 develop:
 	watchify game.js -o build.js --debug
