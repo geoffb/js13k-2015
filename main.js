@@ -1,11 +1,13 @@
-var engine = require("./ocelot/engine");
+var game = require("./ocelot/game");
 var entities = require("./ocelot/entities");
 var assets = require("./ocelot/assets");
 var tween = require("./ocelot/tween");
 var color = require("./ocelot/utils/color");
 
 var darkness = require("./components/darkness");
+var gameController = require("./components/gameController");
 
+// Define color palette
 color.define({
 	black: [20, 12, 28],
 	white: [222, 238, 214],
@@ -13,21 +15,29 @@ color.define({
 	orange: [210, 125, 44]
 });
 
+// Define scenes
+game.defineScene("level", require("./scenes/level"));
+
 assets.load([
 	"media/images/sprites.png"
 ]);
 
 var map = [];
-for (var y = 0; y < 10; ++y) {
+for (var y = 0; y < 12; ++y) {
 	map.push([]);
-	for (var x = 0; x < 10; ++x) {
+	for (var x = 0; x < 20; ++x) {
 		map[y][x] = Math.random() > 0.5 ? 1 : 0;
 	}
 }
 
-engine.init(160, 90);
+game.init(160, 90);
 
 entities.defineComponent("darkness", darkness);
+entities.defineComponent("gameController", gameController);
+
+entities.definePrefab("gameController", {
+	gameController: {}
+});
 
 entities.definePrefab("map", {
 	transform: {
@@ -78,15 +88,5 @@ entities.definePrefab("darkness", {
 	}
 });
 
-var map = entities.spawn("map");
-var player = entities.spawn("player");
-var darkness = entities.spawn("darkness");
-
-// tween.create(player.transform, {
-// 	x: 150,
-// 	y: 80
-// }, 2000);
-
-// entities.spawn("thing1");
-
-engine.start();
+game.loadScene("level");
+game.start();
