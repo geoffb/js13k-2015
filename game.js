@@ -2,8 +2,16 @@ var engine = require("./ocelot/engine");
 var entities = require("./ocelot/entities");
 var assets = require("./ocelot/assets");
 var tween = require("./ocelot/tween");
+var color = require("./ocelot/utils/color");
 
 var darkness = require("./components/darkness");
+
+color.define({
+	black: [20, 12, 28],
+	white: [222, 238, 214],
+	yellow: [218, 212, 94],
+	orange: [210, 125, 44]
+});
 
 assets.load([
 	"media/images/sprites.png"
@@ -45,7 +53,9 @@ entities.definePrefab("player", {
 		r: 0
 	},
 	light: {
-		radius: 16
+		radius: 16,
+		color: "orange",
+		intensity: 1
 	},
 	sprite: {
 		image: "media/images/sprites.png",
