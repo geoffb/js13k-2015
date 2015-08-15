@@ -3,8 +3,10 @@ var entities = require("./ocelot/entities");
 var assets = require("./ocelot/assets");
 var tween = require("./ocelot/tween");
 
+var darkness = require("./components/darkness");
+
 assets.load([
-	"media/images/tiles.png"
+	"media/images/sprites.png"
 ]);
 
 var map = [];
@@ -15,63 +17,66 @@ for (var y = 0; y < 10; ++y) {
 	}
 }
 
-engine.init(320, 240);
+engine.init(160, 90);
+
+entities.defineComponent("darkness", darkness);
 
 entities.definePrefab("map", {
 	transform: {
-		x: 10,
-		y: 10,
+		x: 0,
+		y: 0,
 		sx: 1,
 		sy: 1,
 		r: 0
 	},
 	tilemap: {
-		image: "media/images/tiles.png",
+		image: "media/images/sprites.png",
 		size: 8,
 		map: map
 	}
 });
 
-entities.definePrefab("thing1", {
+entities.definePrefab("player", {
 	transform: {
-		x: 100,
-		y: 100,
+		x: 20,
+		y: 20,
 		sx: 1,
 		sy: 1,
 		r: 0
 	},
-
-	// body: {
-	// 	vx: 0,
-	// 	vy: 0,
-	// 	g: 1
-	// },
-	// sprite: {
-	// 	alpha: 1,
-	// 	path: "hero.png"
-	// },
-	shape: {
-		type: "rect",
-		fill: "red",
-		stroke: "darkred",
-		lineWidth: 4,
-		width: 40,
-		height: 80
+	light: {
+		// Radius
+		// Color
 	},
-	// text: {
-	// 	text: "Hello World",
-	// 	fill: "black",
-	// 	font: "Arial",
-	// 	size: 12
-	// }
+	sprite: {
+		image: "media/images/sprites.png",
+		index: 2,
+		size: 8
+	}
+});
+
+entities.definePrefab("darkness", {
+	transform: {
+		x: 80,
+		y: 45,
+		sx: 1,
+		sy: 1,
+		r: 0
+	},
+	darkness: {
+		width: 160,
+		height: 90
+	}
 });
 
 var map = entities.spawn("map");
+var player = entities.spawn("player");
+var darkness = entities.spawn("darkness");
 
-tween.create(map.transform, {
-	x: 200,
-	y: 100
-}, 1000);
+// tween.create(map.transform, {
+// 	x: 200,
+// 	y: 100
+// }, 1000);
 
 // entities.spawn("thing1");
 
