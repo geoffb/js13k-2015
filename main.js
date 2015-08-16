@@ -5,7 +5,6 @@ var tween = require("./ocelot/tween");
 var color = require("./ocelot/utils/color");
 
 var darkness = require("./components/darkness");
-var gameController = require("./components/gameController");
 
 // Define color palette
 color.define({
@@ -33,11 +32,6 @@ for (var y = 0; y < 12; ++y) {
 game.init(160, 90);
 
 entities.defineComponent("darkness", darkness);
-entities.defineComponent("gameController", gameController);
-
-entities.definePrefab("gameController", {
-	gameController: {}
-});
 
 entities.definePrefab("map", {
 	transform: {

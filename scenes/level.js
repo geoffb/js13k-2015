@@ -24,6 +24,14 @@ var movePlayer = function (x, y) {
 		x: playerX * tileSize + tileSize / 2,
 		y: playerY * tileSize + tileSize / 2
 	}, 250);
+	tween.create(player.transform, {
+		sx: 1.25,
+		sy: 1.25
+	}, 125);
+	tween.create(player.transform, {
+		sx: 1,
+		sy: 1
+	}, 125, 125);
 };
 
 exports.start = function () {
