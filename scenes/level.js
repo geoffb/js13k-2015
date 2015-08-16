@@ -1,6 +1,15 @@
 var entities = require("../ocelot/entities");
 var tween = require("../ocelot/tween");
 
+var mapData = [];
+for (var y = 0; y < 12; ++y) {
+	mapData.push([]);
+	for (var x = 0; x < 20; ++x) {
+		mapData[y][x] = Math.random() > 0.5 ? 1 : 0;
+	}
+}
+
+
 var player, map, darkness;
 
 var tileSize = 8;
@@ -38,6 +47,8 @@ exports.start = function () {
 	map = entities.spawn("map");
 	player = entities.spawn("player");
 	darkness = entities.spawn("darkness");
+
+	map.tilemap.map = mapData;
 
 	setPlayer(0, 0);
 };
