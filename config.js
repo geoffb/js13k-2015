@@ -10,12 +10,20 @@ exports.components = {
 	sprite: require("./ocelot/components/sprite"),
 	tilemap: require("./ocelot/components/tilemap"),
 	light: require("./ocelot/components/light"),
-	darkness: require("./components/darkness")
+	darkness: require("./components/darkness"),
+	unit: require("./components/unit"),
+	goblin: require("./components/goblin")
 };
 
 exports.prefabs = {
 
 	player: {
+		unit: {
+			x: 0,
+			y: 0,
+			dx: 0,
+			dy: 0
+		},
 		transform: {
 			x: 20,
 			y: 20,
@@ -31,6 +39,33 @@ exports.prefabs = {
 		sprite: {
 			image: "media/images/sprites.png",
 			index: 2,
+			size: 8
+		}
+	},
+
+	goblin: {
+		goblin: {},
+		unit: {
+			x: 10,
+			y: 6,
+			dx: -1,
+			dy: 0
+		},
+		transform: {
+			x: 0,
+			y: 0,
+			sx: 1,
+			sy: 1,
+			r: 0
+		},
+		light: {
+			radius: 10,
+			color: "darkgreen",
+			intensity: 1
+		},
+		sprite: {
+			image: "media/images/sprites.png",
+			index: 3,
 			size: 8
 		}
 	},

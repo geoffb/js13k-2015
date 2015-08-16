@@ -1,14 +1,10 @@
 var entities = require("../ocelot/entities");
 var tween = require("../ocelot/tween");
 
-var mapData = [];
-for (var y = 0; y < 12; ++y) {
-	mapData.push([]);
-	for (var x = 0; x < 20; ++x) {
-		mapData[y][x] = Math.random() > 0.5 ? 1 : 0;
-	}
-}
+var board = require("../board");
 
+var tickDuration = 500;
+var nextTick = 0;
 
 var player, map, darkness;
 
@@ -43,18 +39,9 @@ var movePlayer = function (x, y) {
 	}, 125, 125);
 };
 
-exports.start = function () {
-	map = entities.spawn("map");
-	player = entities.spawn("player");
-	darkness = entities.spawn("darkness");
-
-	map.tilemap.map = mapData;
-
-	setPlayer(0, 0);
-};
-
-exports.update = function (dt, keys) {
+var handleInput = function (keys) {
 	if (!acceptInput) { return; }
+
 	var x = 0;
 	var y = 0;
 	if (keys[37]) {
@@ -71,11 +58,41 @@ exports.update = function (dt, keys) {
 	}
 
 	if (x !== 0 || y !== 0) {
-		movePlayer(playerX + x, playerY + y);
-		acceptInput = false;
-		setTimeout(function () {
-			acceptInput = true;
-		}, 250);
+		player.unit.dx = x;
+		player.unit.dy = y;
 	}
 
+	// nextTick = 0;
+};
+
+exports.start = function () {
+	var mapData = board.generate();
+
+	map = entities.spawn("map");
+	map.tilemap.map = mapData;
+
+	player = entities.spawn("player");
+	entities.spawn("goblin");
+
+
+
+	darkness = entities.spawn("darkness");
+
+	setPlayer(0, 0);
+
+	nextTick = tickDuration;
+};
+
+exports.update = function (dt, keys) {
+	handleInput(keys);
+
+	nextTick -= dt;
+	if (nextTick <= 0) {
+		entities.triggerAll("tick", [board]);
+		nextTick += tickDuration;
+		// acceptInput = false;
+		// setTimeout(function () {
+		// 	acceptInput = true;
+		// }, 250);
+	}
 };
