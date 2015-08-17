@@ -3,41 +3,11 @@ var tween = require("../ocelot/tween");
 
 var board = require("../board");
 
-var tickDuration = 500;
-var nextTick = 0;
+var idleDuration = 0;
 
 var player, map, darkness;
 
-var tileSize = 8;
-
-var playerX = 0;
-var playerY = 0;
-
 var acceptInput = true;
-
-var setPlayer = function (x, y) {
-	playerX = x;
-	playerY = y;
-	player.transform.x = playerX * tileSize + tileSize / 2;
-	player.transform.y = playerY * tileSize + tileSize / 2;
-};
-
-var movePlayer = function (x, y) {
-	playerX = x;
-	playerY = y;
-	tween.create(player.transform, {
-		x: playerX * tileSize + tileSize / 2,
-		y: playerY * tileSize + tileSize / 2
-	}, 250);
-	tween.create(player.transform, {
-		sx: 1.25,
-		sy: 1.25
-	}, 125);
-	tween.create(player.transform, {
-		sx: 1,
-		sy: 1
-	}, 125, 125);
-};
 
 var handleInput = function (keys) {
 	if (!acceptInput) { return; }
@@ -60,9 +30,17 @@ var handleInput = function (keys) {
 	if (x !== 0 || y !== 0) {
 		player.unit.dx = x;
 		player.unit.dy = y;
+		tick();
 	}
+};
 
-	// nextTick = 0;
+var tick = function () {
+	entities.triggerAll("tick", [board]);
+	idleDuration = 0;
+	acceptInput = false;
+	setTimeout(function () {
+		acceptInput = true;
+	}, 250);
 };
 
 exports.start = function () {
@@ -72,27 +50,23 @@ exports.start = function () {
 	map.tilemap.map = mapData;
 
 	player = entities.spawn("player");
-	entities.spawn("goblin");
 
-
+	for (var i = 0; i < 5; ++i) {
+		var goblin = entities.spawn("goblin");
+		goblin.unit.x = Math.round(Math.random() * 20);
+		goblin.unit.y = Math.round(Math.random() * 12);
+	}
 
 	darkness = entities.spawn("darkness");
-
-	setPlayer(0, 0);
-
-	nextTick = tickDuration;
 };
 
 exports.update = function (dt, keys) {
 	handleInput(keys);
 
-	nextTick -= dt;
-	if (nextTick <= 0) {
-		entities.triggerAll("tick", [board]);
-		nextTick += tickDuration;
-		// acceptInput = false;
-		// setTimeout(function () {
-		// 	acceptInput = true;
-		// }, 250);
+	if (acceptInput) {
+		idleDuration += dt;
+		if (idleDuration > 1000) {
+			tick();
+		}
 	}
 };

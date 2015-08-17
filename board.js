@@ -15,7 +15,7 @@ exports.generate = function () {
 	for (var y = 0; y < 12; ++y) {
 		map.push([]);
 		for (var x = 0; x < 20; ++x) {
-			map[y][x] = random.chance(0.5) ? 1 : 0;
+			map[y][x] = random.chance(0.8) ? 1 : 0;
 		}
 	}
 
@@ -29,6 +29,15 @@ exports.mapToWorld = function (x, y) {
 		x: Math.round(x * size + size / 2),
 		y: Math.round(y * size + size / 2)
 	};
+};
+
+exports.wall = function (x, y) {
+	return (
+		x < 0 || y < 0 ||
+		y >= map.length ||
+		x >= map[y].length ||
+		map[y][x] === 0
+	);
 };
 
 exports.move = function (entity, x, y) {
