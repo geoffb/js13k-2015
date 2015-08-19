@@ -22,7 +22,8 @@ exports.prefabs = {
 			x: 0,
 			y: 0,
 			dx: 0,
-			dy: 0
+			dy: 0,
+			hp: 3
 		},
 		transform: {
 			x: 20,
@@ -49,7 +50,8 @@ exports.prefabs = {
 			x: 10,
 			y: 6,
 			dx: -1,
-			dy: 0
+			dy: 0,
+			hp: 1
 		},
 		transform: {
 			x: 0,
