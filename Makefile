@@ -1,4 +1,4 @@
-all: clean
+build: clean
 	./build.sh
 
 clean:
