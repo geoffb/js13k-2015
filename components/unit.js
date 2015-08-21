@@ -18,7 +18,9 @@ exports.tick = function (board) {
 				entity.unit.hp--;
 				if (entity.unit.hp < 1) {
 					delete entity["light"];
-					entity.transform.r = Math.PI / 2;
+					tween.create(entity.transform, {
+						r: Math.PI / 2
+					}, 150, 0);
 				}
 				effects.negate(this); // TODO: Attack polish
 			} else {
