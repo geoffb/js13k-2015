@@ -6,10 +6,10 @@ exports.scenes = {
 };
 
 exports.components = {
-	transform: require("./ocelot/components/transform"),
-	sprite: require("./ocelot/components/sprite"),
-	tilemap: require("./ocelot/components/tilemap"),
-	light: require("./ocelot/components/light"),
+	transform: require("ocelot/lib/components/transform"),
+	sprite: require("ocelot/lib/components/sprite"),
+	tilemap: require("ocelot/lib/components/tilemap"),
+	light: require("ocelot/lib/components/light"),
 	darkness: require("./components/darkness"),
 	unit: require("./components/unit"),
 	goblin: require("./components/goblin")

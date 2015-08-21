@@ -1,5 +1,5 @@
-var canvas = require("../ocelot/canvas");
-var entities = require("../ocelot/entities");
+var canvas = require("ocelot/lib/canvas");
+var entities = require("ocelot/lib/entities");
 
 var buffer = canvas.create(1, 1);
 var bctx = buffer.getContext("2d");

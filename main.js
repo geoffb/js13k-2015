@@ -1,6 +1,6 @@
-var game = require("./ocelot/game");
-var assets = require("./ocelot/assets");
-var color = require("./ocelot/utils/color");
+var game = require("ocelot");
+var assets = require("ocelot/lib/assets");
+var color = require("ocelot/lib/utils/color");
 
 // Define color palette
 color.define({

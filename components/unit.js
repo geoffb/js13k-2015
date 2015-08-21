@@ -1,5 +1,5 @@
-var tween = require("../ocelot/tween");
-var effects = require("../ocelot/utils/effects");
+var tween = require("ocelot/lib/tween");
+var effects = require("ocelot/lib/utils/effects");
 
 exports.tick = function (board) {
 	var unit = this.unit;

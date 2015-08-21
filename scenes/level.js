@@ -1,5 +1,5 @@
-var entities = require("../ocelot/entities");
-var tween = require("../ocelot/tween");
+var entities = require("ocelot/lib/entities");
+var tween = require("ocelot/lib/tween");
 
 var board = require("../board");
 

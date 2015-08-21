@@ -1,5 +1,5 @@
-var entities = require("./ocelot/entities");
-var random = require("./ocelot/utils/random");
+var entities = require("ocelot/lib/entities");
+var random = require("ocelot/lib/utils/random");
 
 var size = 8;
 

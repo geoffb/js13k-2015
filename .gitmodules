@@ -1,3 +1,0 @@
-[submodule "ocelot"]
-	path = ocelot
-	url = git@github.com:geoffb/ocelot.git
