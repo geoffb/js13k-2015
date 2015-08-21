@@ -1,8 +1,8 @@
 build: clean
-	./build.sh
+	./tools/build.sh
+
+develop:
+	./tools/develop.sh
 
 clean:
 	rm -rf build
-
-develop:
-	watchify lib/main.js -o build.js --debug
