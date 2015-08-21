@@ -1,5 +1,5 @@
 # Build/minify/mangle JavaScript
-browserify main.js -o build.js
+browserify lib/main.js -o build.js
 uglifyjs build.js \
 	-o build.js --overwrite \
 	--compress unsafe,screw_ie8,hoist_vars \

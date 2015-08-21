@@ -5,4 +5,4 @@ clean:
 	rm -rf build
 
 develop:
-	watchify main.js -o build.js --debug
+	watchify lib/main.js -o build.js --debug
